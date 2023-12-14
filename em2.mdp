@@ -1,0 +1,51 @@
+; RUN CONTROL PARAMETERS
+;define                   = -DBILAYER_LIPIDHEAD_FC=2
+integrator 		 = cg
+dt                       = 0.001
+nsteps 			 = 5000
+nstcomm                  = 100
+nstxout                  = 0
+nstvout                  = 0
+nstfout                  = 0
+nstlog                   = 1000
+compressed-x-precision   = 100
+energygrps               = unk memb sol_ion
+
+cutoff-scheme            = Verlet
+nstlist                  = 20
+ns_type                  = grid
+pbc                      = xyz
+verlet-buffer-tolerance  = 0.005
+epsilon_r                = 15
+coulombtype              = reaction-field
+rcoulomb                 = 1.1
+vdw_type                 = cutoff
+vdw-modifier             = Potential-shift-verlet
+rvdw                     = 1.1
+
+gen_vel                  = yes
+gen_temp                 = 306
+gen_seed                 = 473529
+;constraints              = hbonds
+;constraint_algorithm     = Lincs; COM PULLING
+freezegrps = lip
+freezedim = Y Y N
+pull                     = yes
+pull-coord1-type            = umbrella
+pull-coord1-geometry        = distance
+pull-coord1-dim                 = Y N N
+;pull_constr_tol          = 1e-06
+pull-coord1-start               =no
+pull_nstxout             = 100
+pull_nstfout             = 100
+pull_ngroups             = 2
+pull-group1-name  = lip
+pull-group2-name  = unk
+pull-coord1-init               = POS1
+pull-coord1-rate               = 0.01
+pull-coord1-k                  = 1000
+;pull-coord1-kB                 = 1000
+pull-group1-pbcatom            = 1348
+pull_pbc_ref_prev_step_com = yes
+pull-coord1-groups        = 1 2
+
